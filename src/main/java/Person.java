@@ -1,24 +1,37 @@
+
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "person")
 public class Person {
-    public long Id;
-    public String Name;
-    public LocalDate DateOfBirth;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long id;
+    public String name;
+    public LocalDate dateOfBirth;
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        this.Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
 }
