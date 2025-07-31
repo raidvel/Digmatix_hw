@@ -2,7 +2,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "person")
+@Table(name = "persons")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +33,9 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
+    //
+    @Override
+    public String toString() {
+        return "Person: [id = " + id + ", Name = " + name + ", Date of birth = " + dateOfBirth + "]";
+    }
 }

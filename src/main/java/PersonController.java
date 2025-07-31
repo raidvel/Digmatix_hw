@@ -1,20 +1,41 @@
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/person")
+@RequestMapping(value = "/management", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class PersonController {
 
-    private final PersonRepository personRepository;
+    @Autowired
+    private PersonRepository personRepository;
 
-    public PersonController(PersonRepository personRepository) {
+    public PersonRepository getRepository(){
+        return personRepository;
+    }
+
+    public void setRepository(PersonRepository personRepository){
         this.personRepository = personRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<Person> addPerson(@RequestBody Person person) {
-        Person savedPerson = personRepository.save(person);
-        return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
+    @GetMapping("/persons")
+    public List<Person> getAllPersons() {
+        return personRepository.findAll();
     }
+
+    @PostMapping
+    Person createPerson(@RequestBody Person person){
+        return personRepository.save(person);
+    }
+
+    @GetMapping("/persons/{id}")
+   Person getEmployee(@PathVariable Long id){
+        return personRepository.findById(id).get();
+    }
+    @DeleteMapping("/persons/{id}")
+    void deletePerson(@PathVariable Long id){
+        personRepository.deleteById(id);
+    }
+
 }
