@@ -11,10 +11,7 @@ import java.net.HttpURLConnection;
 
 import java.net.URL;
 import java.net.URLConnection;
-
-
-import static org.assertj.core.api.Assertions.assertThat;
-
+import java.nio.charset.StandardCharsets;
 
 @ContextConfiguration(classes = BirthDateApp.class)
 public class HttpRequestTest {
@@ -29,23 +26,27 @@ public class HttpRequestTest {
         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8; ");
         con.setRequestProperty("Accept", "application/json");
         con.setDoOutput(true);
+        con.setDoInput(true);
 
         String JsonString = "{\"birthDate\":\"2000-06-22\",\"name\":\"John McClane\"}";
 
         try(OutputStream os = con.getOutputStream()) {
-            byte[] input = JsonString.getBytes("utf-8");
+            byte[] input = JsonString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
-        //There is no input stream, because we dont get anything back!
         try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
             String responseLine = null;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
             System.out.println(response);
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
+
         }
     }
 

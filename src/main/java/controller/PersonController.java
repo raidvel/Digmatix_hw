@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(path = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/")
 public class PersonController {
+
 
     private PersonRepository personRepository;
 
@@ -26,9 +27,8 @@ public class PersonController {
     @GetMapping("/persons")
     public String getAllPersons() {
         String message = "Welcome to Hell!";
-        return message;
-        // System.out.println(personRepository.findAll());
-       // return personRepository.findAll();
+        System.out.println(personRepository.findAll());
+        return message + personRepository.findAll();
     }
 
     @PostMapping("/persons")
