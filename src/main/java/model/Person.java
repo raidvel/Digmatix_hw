@@ -1,3 +1,5 @@
+package model;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -36,6 +38,6 @@ public class Person {
     //
     @Override
     public String toString() {
-        return "Person: [id = " + id + ", Name = " + name + ", Date of birth = " + dateOfBirth + "]";
+        return "model.Person: [id = " + id + ", Name = " + name + ", Date of birth = " + dateOfBirth + "]";
     }
 }

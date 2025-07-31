@@ -1,14 +1,18 @@
+package controller;
+
+import model.Person;
+import org.springframework.stereotype.Repository;
+import repository.PersonRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
-@RequestMapping(value = "/management", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class PersonController {
 
-    @Autowired
     private PersonRepository personRepository;
 
     public PersonRepository getRepository(){
@@ -20,22 +24,29 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    public List<Person> getAllPersons() {
-        return personRepository.findAll();
+    public String getAllPersons() {
+        String message = "Welcome to Hell!";
+        return message;
+        // System.out.println(personRepository.findAll());
+       // return personRepository.findAll();
     }
 
     @PostMapping("/persons")
     Person createPerson(@RequestBody Person person){
+        System.out.println(person.toString());
         return personRepository.save(person);
     }
 
     @GetMapping("/persons/{id}")
-   Person getEmployee(@PathVariable Long id){
+    Person getEmployee(@PathVariable Long id){
+        System.out.println(personRepository.findById(id).get());
         return personRepository.findById(id).get();
     }
     @DeleteMapping("/persons/{id}")
     void deletePerson(@PathVariable Long id){
+        System.out.println("Before: " + personRepository.findById(id).get());
         personRepository.deleteById(id);
+        System.out.println("After: " + personRepository.findById(id).get());
     }
 
 }
