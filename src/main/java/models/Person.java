@@ -1,16 +1,25 @@
-package model;
+package models;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "persons")
-public class Person {
+public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
-    public String name;
+
+    @Column
     public LocalDate dateOfBirth;
+
+    @Column
+    public String name;
+
+    public Person() {
+    }
 
     public long getId() {
         return id;
@@ -35,7 +44,6 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    //
     @Override
     public String toString() {
         return "model.Person: [id = " + id + ", Name = " + name + ", Date of birth = " + dateOfBirth + "]";

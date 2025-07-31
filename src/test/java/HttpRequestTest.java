@@ -16,15 +16,19 @@ import java.nio.charset.StandardCharsets;
 @ContextConfiguration(classes = BirthDateApp.class)
 public class HttpRequestTest {
 
+    /*
+        TODO: Figure this out for tests, currently not functional
+
+     */
+
     @Test
     void addNewPerson() throws Exception {
         System.out.println("Adding a new person");
-        URL url = new URL("http://localhost:" + 8080 + "/persons");
+        URL url = new URL("http://localhost:" + 8080 + "/api/person");
         URLConnection conn = url.openConnection();
         HttpURLConnection con = (HttpURLConnection) conn;
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8; ");
-        con.setRequestProperty("Accept", "application/json");
         con.setDoOutput(true);
         con.setDoInput(true);
 
@@ -38,13 +42,12 @@ public class HttpRequestTest {
         try(BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
-            String responseLine = null;
+            String responseLine;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
             System.out.println(response);
         } catch (Exception e) {
-            System.out.println(e);
             throw e;
 
         }
