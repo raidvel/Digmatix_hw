@@ -24,7 +24,7 @@ public class PersonController {
         return personRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/persons")
     Person createPerson(@RequestBody Person person){
         return personRepository.save(person);
     }
