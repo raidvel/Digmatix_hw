@@ -17,8 +17,8 @@ import java.nio.charset.StandardCharsets;
 public class HttpRequestTest {
 
     /*
-        TODO: Figure this out for tests, currently not functional
-
+        TODO: Create a connection handler in Util.
+         Should have started with unit tests and end with end to end full flow integration test.
      */
 
     @Test

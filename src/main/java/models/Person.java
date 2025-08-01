@@ -6,17 +6,23 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "persons")
+@Table(name = "person")
 public class Person implements Serializable {
+    /*
+        TODO:
+         Should LocalDate and name be nullable?
+         Should add annotations for validations to check later with tests?
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    private long id;
 
     @Column
-    public LocalDate dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column
-    public String name;
+    private String name;
 
     public Person() {
     }
